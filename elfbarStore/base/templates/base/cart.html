@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="main__title">Корзина</div>
+
+{% if cart %}
+<div class="cart__products">
+    {% for product in cart %}
+        <div class="cart__product">
+            <div class="cart-product__img">
+                <img src="{% static product.image %}" alt="{{product.image}}">
+            </div>
+            <div class="cart-product__name-info">
+                <div class="cart-product__name">{{ product.name }}</div>
+                <div class="cart-product__chosen-flavour">Смак: {{ product.chosen_flavour }}</div>
+            </div>
+
+            <div class="cart-product__amount">
+                <button type="button" onclick="decrease('{{product.id}}_{{product.chosen_flavour}}', '{{ product.price }}')">-</button>
+                <input type="number" oninput="changeValue('{{product.id}}_{{product.chosen_flavour}}', '{{ product.price }}')" value="{{product.quantity}}" min="1" max="100" id="product-value_{{product.id}}_{{product.chosen_flavour}}">
+                <button type="button" onclick="increase('{{product.id}}_{{product.chosen_flavour}}', '{{ product.price }}')">+</button>
+            </div>
+            
+            <div class="cart-product__price" id="{{product.id}}_{{product.chosen_flavour}}">{{ product.price }} грн.</div>
+
+            <div class="cart-product__remove">
+                <a href="{% url 'remove-from-cart' product.id product.chosen_flavour %}">X</a>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+    <div class="cart-product__general"><b>Загальна ціна: </b></div>
+</div>
+{% endif %}
+
+
+<script>
+        
+    function decrease(index, price) {
+        let inp = document.getElementById(`product-value_${index}`)
+        if (inp.value > 1) inp.value--;
+
+        changePrice(index, price)
+    }
+
+    function increase(index, price) {
+        let inp = document.getElementById(`product-value_${index}`)
+        if (inp.value < 100) inp.value++;
+
+        changePrice(index, price)
+    }
+
+    function changeValue(index, price) {
+        let inp = document.getElementById(`product-value_${index}`);
+        if (inp.value < 1) {
+            inp.value = 1;
+        } else if (inp.value > 100) {
+            inp.value = 100;
+        }
+
+        changePrice(index, price)
+    }
+
+    function changePrice(productId, price) {
+        priceInput = document.getElementById(productId);
+        let quantity = parseInt(document.getElementById('product-value_' + productId).value);
+        priceInput.textContent = (quantity * price).toFixed(2) + 'грн.'
+
+        generalPrice()
+        
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+            let prices = document.querySelectorAll('.cart-product__price');
+
+            prices.forEach(price => {
+                let id = price.id
+                let pricePerOne = parseFloat(price.textContent);
+                let quantity = parseInt(document.getElementById('product-value_' + id).value);
+                
+                price.textContent = (quantity * pricePerOne).toFixed(2) + 'грн.'
+            })
+            generalPrice()
+        });
+
+    function generalPrice() {
+        let prices = document.querySelectorAll('.cart-product__price');
+        let generalPriceInput = document.querySelector('.cart-product__general')
+        let generalPrice = 0;
+
+            prices.forEach(price => {
+                generalPrice += parseFloat(price.textContent);
+            })
+        generalPriceInput.innerHTML = 'Загальна ціна:  <div class="fw-bold" style="margin-left: 5px;">' + generalPrice + ' грн.</div>';
+    }
+
+    
+</script>
+    
+{% endblock %}

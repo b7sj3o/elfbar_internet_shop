@@ -1,0 +1,102 @@
+.cart{
+    &__products {
+        max-width: 50%;
+        margin-left: 10%;
+        background-color: #fff;
+        padding: 5px;
+    }
+
+    &__product {
+        display: flex;
+        column-gap: 10px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
+}
+
+.cart-product {
+    &__img {
+        img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+    &__name-info {
+        display: grid;
+    }
+    &__name {
+        font-size: 16px;
+        font-weight: 400;
+    }
+    &__chosen-flavour {
+        font-size: 12px;
+        font-weight: 400;
+        opacity: .7;
+    }
+    &__buy {
+        border: 0;
+        background: transparent;
+    }
+    &__amount {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        border: 0;
+        background: transparent;
+
+        input {
+            border: 0;
+            background: transparent;
+            text-align: center;
+            width: 20px;
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                appearance: none;
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            &:focus-visible {
+                outline: none;
+            }
+        }
+
+        button {
+            opacity: .7;
+            border: 1px solid #000;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+        }
+    }
+    &__price {
+        
+    }
+    &__remove {
+        a {
+            opacity: .7;
+            border: 1px solid #000;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            font-size: 13px;
+        }
+    }
+
+    &__general {
+        display: flex;
+        justify-content: end;
+        margin-right: 10px;
+    }
+}

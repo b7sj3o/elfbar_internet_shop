@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+{% block style %}
+<link rel="stylesheet" href="{% sass_src 'base/css/login.min.css' %}">
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="wrapper">
+
+</div>
+<div class="login__page">
+    <div class="main__title">Увійти в акаунт</div>
+    <div class="login__field">
+        <div class="login__pic"><img src="{% static 'base/img/icons/fingerprint.png' %}" alt=""></div>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div class="login__input">
+                <input type="text" name="username"  placeholder="Ім'я користувача" >
+            </div>
+            <div class="login__password-wrapper">
+                <div class="login__input">
+                    <input type="password" name="password"  placeholder="Пароль">
+                </div>
+                <img src="{% static 'base/img/icons/open-eye.png' %}" alt="">
+                <img src="{% static 'base/img/icons/hide-eye.png' %}" alt="">
+            </div>
+            <button type="submit" class="login__submit-btn">Увійти</button>   
+        </form>
+        <div class="login__forget-password">Забули свій пароль? <a href="">Відновити пароль</a></div>
+            <hr>
+            <div class="login__create-account">У вас ще немає акаунту? <br><a href="#" onclick="registerPage()">Створити акаунт</a></div>
+    </div>
+</div>
+<div class="registration__page" style="display: none;">
+    <div class="main__title">Зареєструватись</div>
+    <div class="login__field register__field">
+        <div class="login__pic"><img src="{% static 'base/img/icons/fingerprint.png' %}" alt=""></div>
+        <form action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+            <div class="login__input">
+                <input type="text" name="username" placeholder="Ім'я користувача" >
+            </div>
+            <div class="login__input">
+                <input type="email" name="email" placeholder="E-mail користувача" >
+            </div>
+            <div class="login__password-wrapper">
+                <div class="login__input">
+                    <input type="password" name="password" placeholder="Пароль">
+                </div>
+                <img src="{% static 'base/img/icons/open-eye.png' %}" alt="">
+                <img src="{% static 'base/img/icons/hide-eye.png' %}" alt="">
+            </div>
+            <button type="submit" class="login__submit-btn">Увійти</button>   
+        </form>
+        <hr>
+        <div class="login__create-account">У вас вже є акаунт? <br><a href="#" onclick="loginPage()">Увійти в акаунт</a></div>
+    </div>
+</div>
+
+
+<script>
+    let input = document.querySelector('.login__password');
+    
+
+    function showPassword() {
+        input.type = 'text'
+    }
+    function hidePassword() {
+        input.type = 'password'
+    }
+
+    let loginPageHTML = document.querySelector('.login__page')
+    let registerPageHTML = document.querySelector('.registration__page');
+
+    function registerPage() {
+        loginPageHTML.style.display = 'none';
+        registerPageHTML.style.display = 'block';
+    }
+
+    function loginPage() {
+        loginPageHTML.style.display = 'block';
+        registerPageHTML.style.display = 'none';
+    }
+</script>
+
+{% endblock %}
