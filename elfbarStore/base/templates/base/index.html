@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block content %}
+    <div class="container">
+        
+    </div>
     <div class="main__block">
         <div class="main__title">Каталог</div>
     </div>
@@ -25,23 +28,25 @@
                         <p>Смак</p>
                         <select name="chosen_flavour">
                             {% for flavour in product.flavours.all %}
-                            {% if flavour.is_avialable %}
-                                <option value="{{ flavour.flavour }}">✅{{ flavour.flavour }}</option>
-                            {% else %}
-                                <option value="{{ flavour.flavour }}" disabled>❌{{ flavour.flavour }}</option>
-                            {% endif %}
+                                {% if flavour.is_avialable %}
+                                    <option value="{{ flavour.flavour }}">✅{{ flavour.flavour }}</option>
+                                {% else %}
+                                    <option value="{{ flavour.flavour }}" disabled>❌{{ flavour.flavour }}</option>
+                                {% endif %}
                             {% endfor %}
                         </select>
                     </div>
                     <div class="product__buy">
                         <div class="product__amount">
-                            <button type="button" onclick="decrease({{product.id}})">-</button>
-                            <input type="number" name="quantity" oninput="changeValue({{product.id}})" value="1" min="1" max="100" id="product-value_{{product.id}}">
-                            <button type="button" onclick="increase({{product.id}})">+</button>
+                            <button type="button" onclick="decrease('{{product.id}}')">-</button>
+                            <input type="number" name="quantity" oninput="changeValue('{{product.id}}')" value="1" min="1" max="100" id="product-value_{{product.id}}">
+                            <button type="button" onclick="increase('{{product.id}}')">+</button>
                         </div>
                         <input type="submit" value="Купити">
                     </div>
-                    
+                    {% if request.user.username == 'admin' %}
+                        <a href="{% url 'delete-product' product.id %}" class="product__delete">Видалити</a>
+                    {% endif %}
                 </form>
             </div>
         {% endfor %}

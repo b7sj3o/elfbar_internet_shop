@@ -25,8 +25,6 @@
                 <div class="login__input">
                     <input type="password" name="password"  placeholder="Пароль">
                 </div>
-                <img src="{% static 'base/img/icons/open-eye.png' %}" alt="">
-                <img src="{% static 'base/img/icons/hide-eye.png' %}" alt="">
             </div>
             <button type="submit" class="login__submit-btn">Увійти</button>   
         </form>
@@ -41,19 +39,12 @@
         <div class="login__pic"><img src="{% static 'base/img/icons/fingerprint.png' %}" alt=""></div>
         <form action="{% url 'register' %}" method="POST">
             {% csrf_token %}
-            <div class="login__input">
-                <input type="text" name="username" placeholder="Ім'я користувача" >
-            </div>
-            <div class="login__input">
-                <input type="email" name="email" placeholder="E-mail користувача" >
-            </div>
-            <div class="login__password-wrapper">
-                <div class="login__input">
-                    <input type="password" name="password" placeholder="Пароль">
+            {% for form in forms %}
+                <label for="">{{ form.label }}</label>
+                <div class="login__input register__input">
+                    {{ form }}
                 </div>
-                <img src="{% static 'base/img/icons/open-eye.png' %}" alt="">
-                <img src="{% static 'base/img/icons/hide-eye.png' %}" alt="">
-            </div>
+            {% endfor %}
             <button type="submit" class="login__submit-btn">Увійти</button>   
         </form>
         <hr>

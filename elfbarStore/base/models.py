@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    username = models.CharField(max_length=100, verbose_name="Ім'я користувача", unique=True)
+    username = models.CharField(max_length=100, verbose_name="Нікнейм користувача", unique=True)
     email = models.EmailField(null=True, unique=True, verbose_name='Ваш E-mail')
     phone = models.CharField(null=True, unique=True, max_length=9, verbose_name="Номер телефону")    
 
@@ -33,14 +33,19 @@ class Product(models.Model):
     image = models.ImageField(blank=True, upload_to='base/img/products', verbose_name="Фото")
     price = models.PositiveIntegerField(verbose_name="Ціна")
 
-
     def __str__(self):
         return self.name
-
-# class ElfbarProduct(BaseProduct):
-    # flavours = models.ManyToManyField(ElfBarFlavours)
-
     
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, through='CartItem')
+    
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    chosen_flavour = models.CharField(max_length=100, default='no flavour')
+    quantity = models.PositiveIntegerField(default=1)
 
 
 

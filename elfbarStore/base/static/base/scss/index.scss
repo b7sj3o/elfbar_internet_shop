@@ -104,6 +104,17 @@
             font-size: 24px;
         }
     }
+
+    &__delete {
+        display: block;
+        width: 100%;
+        background-color: #ff0000;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 24px;
+        padding: 10px 0;
+        color: #fff;
+    }
 }
 
 @media (max-width: 1410px) {

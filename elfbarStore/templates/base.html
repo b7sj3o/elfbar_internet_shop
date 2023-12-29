@@ -33,15 +33,30 @@
             <li class="header__mobile__links__li"><a href="">КОНТАКТИ</a></li>
             <li class="header__mobile__links__li"><a href="">ОПТ</a></li>
             <li class="header__mobile__links__li"><a href="{% url 'cart' %}">КОРЗИНА</a></li>
-            <li class="header__mobile__links__li"><a href="{% url 'create-product' %}">ДОБАВИТИ ТОВАР</a></li>
-            <li class="header__mobile__links__li selected"><a href="">ВВІЙТИ</a></li>
+            {% if request.user.username == 'admin' %}
+                <select name="" id="">
+                    <option value="">
+                        <li class="header__mobile__links__li"><a href="{% url 'create-product' %}">ДОБАВИТИ ТОВАР</a></li>
+                    </option>
+                    <option value="">
+                        <li class="header__mobile__links__li"><a href="{% url 'create-flavour' %}">ДОБАВИТИ СМАК</a></li>
+                    </option>
+                    <option value="">
+                        <li class="header__mobile__links__li"><a href="{% url 'create-type' %}">ДОБАВИТИ ТИП</a></li>
+                    </option>
+                </select>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                <li class="header__mobile__links__li selected"><a href="{% url 'logout' %}" class="text-uppercase">Ввийти</a></li>
+            {% else %}
+                <li class="header__mobile__links__li selected"><a href="{% url 'login' %}" class="text-uppercase">Увійти</a></li>
+            {% endif %}
         </ul>
         <div class="header__mobile__telegram">
             <a href="https://t.me/Elfbarstoree">
                 <img src="{% static 'base/img/icons/telegram.png' %}" alt="">
             </a>
         </div>
-
     </div>
     <header class="header">
         <div class="header__container container">
@@ -57,7 +72,18 @@
                 <li class="header__links__li"><a href="">КОНТАКТИ</a></li>
                 <li class="header__links__li"><a href="">ОПТ</a></li>
                 <li class="header__links__li"><a href="{% url 'cart' %}">КОРЗИНА</a></li>
-                <li class="header__links__li"><a href="{% url 'create-product' %}">ДОБАВИТИ ТОВАР</a></li>
+                {% if request.user.username == 'admin' %}
+                <div class="header__links__li" id="add-product">
+                    <div>ДОБАВИТИ</div>
+                    <div class="header__add" id="header__add">
+                        <div class="header__add-item"><a href="{% url 'create-product' %}">ДОБАВИТИ ТОВАР</a></div>
+                        <div class="header__add-item"><a href="{% url 'create-flavour' %}">ДОБАВИТИ СМАК</a></div>
+                        <div class="header__add-item"><a href="{% url 'create-type' %}">ДОБАВИТИ ТИП</a></div>
+                    </div>
+                </div>
+                
+                        
+                {% endif %}
             </ul>
             <div class="header__buttons">
                 <a href="https://t.me/Elfbarstoree" class="header__telegram">Наш Telegram</a>
@@ -76,6 +102,15 @@
             
         </div>
     </header>
+
+    {% if messages %}
+        {% for i in messages %}
+            <div class="alert alert-warning alert-dismissible fade show position-fixed w-75 mt-3" style="left: 12.5%" role="alert">
+                {{ i }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
     
     <div class="header__banner">
         {% block banner %}{% endblock %}

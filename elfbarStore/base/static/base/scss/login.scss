@@ -31,13 +31,25 @@ body {
             background: transparent;
             text-align: center;
             font-size: 20px;
-            color: rgba(255, 255, 255, 0.712);
+            color: green;
             width: 90%;
 
             &:focus-visible {
                 outline: none;
 
             }
+        }
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus {
+            border: 1px solid #ffffff75;
+            -webkit-text-fill-color: green;
+            -webkit-box-shadow: 0 0 0 1000px #000 inset;
+            padding: 5px 0;
+        }
+
+        input:-webkit-autofill:focus {
+            border: 1px solid green;
         }
 
         
@@ -101,7 +113,6 @@ body {
 
 .register__field {
     background-color: #cda45ca1;
-
 }
 
 hr {
@@ -109,3 +120,18 @@ hr {
     color: gray;
 }
 
+.register__input {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus {
+        -webkit-text-fill-color: #fff;
+        -webkit-box-shadow: 0 0 0px 1000px rgb(135, 231, 140) inset;
+        border: 1px solid rgb(135, 231, 140);
+        -webkit-background: black;
+        padding: 5px 0;
+    }
+
+    input:-webkit-autofill:focus {
+        border: 1px solid #ffce02;
+    }
+}

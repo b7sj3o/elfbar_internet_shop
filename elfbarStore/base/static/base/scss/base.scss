@@ -78,6 +78,8 @@ body {
     }
 
     &__links__li {
+        color: #fff;
+        cursor: pointer;
         a {
             color: #fff;
             font-size: 16px;
@@ -94,11 +96,10 @@ body {
         text-transform: uppercase;
         font-weight: 600;
         box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-        transition: all .3s ease;
+        transition: all 0.3s ease;
         &:hover {
             background-color: #fff;
             color: #000;
-
         }
     }
 
@@ -115,13 +116,12 @@ body {
         text-transform: uppercase;
         font-weight: 600;
         margin: 0 10px;
-        transition: all .3s ease;
+        transition: all 0.3s ease;
         color: #fff;
 
         &:hover {
-            background-color: transparent
+            background-color: transparent;
         }
-
     }
 
     &__banner {
@@ -146,6 +146,26 @@ body {
         font-size: 18px;
     }
 
+    &__add {
+        background-color: #b0a29c;
+        padding: 5px 10px;
+        display: none;
+        position: absolute;
+        &.open {
+            display: block;
+        }
+        &-item {
+            border-bottom: 1px solid #000;
+            
+            a {
+                color: #fff;
+            }
+        }
+        
+    }
+
+    // ---------- MOBILE --------------
+
     &__mobile-menu {
         position: absolute;
         display: none;
@@ -154,7 +174,7 @@ body {
         width: 30%;
         background-color: #b0a29c;
         min-height: 100vh;
-        
+
         &.open {
             display: block;
         }
@@ -169,7 +189,6 @@ body {
     }
 
     &__mobile__links__li {
-
         &.selected {
             margin: 10px 0;
         }
@@ -182,7 +201,6 @@ body {
         }
     }
 }
-
 .burger-btn {
     display: none;
     outline: none;
@@ -197,10 +215,7 @@ body {
         height: 1.5px;
         background-color: #ffffff;
     }
-
 }
-
-
 
 @keyframes scrollText {
     0% {
@@ -219,20 +234,17 @@ body {
         &__links__ul {
             display: none;
         }
-
     }
     .burger-btn {
         display: block;
     }
 }
 
-
 @media (max-width: 520px) {
     .header__mobile__telegram {
         display: none;
     }
 }
-
 
 // ----------------- END HEADER -----------------
 

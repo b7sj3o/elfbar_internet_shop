@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block style %}
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+    .create__product {
+        display: grid;
+        gap: 10px;
+        margin: 0 auto;
+        max-width: 75%;
+    }
+</style>
+
+<div class="container">
+    <div class="create__product">
+        <div class="main__title">Добавити смак</div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for form in forms %}
+            <div>
+                <label for="">{{ form.label }}</label>
+                {{ form }}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary w-50 mt-3">Добавити товар</button>
+        </form>
+    </div>
+    
+</div>
+
+{% endblock %}
