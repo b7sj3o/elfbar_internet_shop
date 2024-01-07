@@ -1,0 +1,55 @@
+<!-- {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .item {
+        display: block;
+        background-color: rgb(199, 185, 185);
+        margin: 5px 0 0 0;
+        padding: 10px 5px;
+        border-radius: 10px;
+        transition: all .5s ease;
+    }
+
+    .item:hover {
+        background-color: rgb(73, 77, 80);
+        color: #fff;
+    }
+</style>
+
+<div class="container">
+    <form action="{% url 'search' %}" method="GET" class="mt-3">
+        <input class="form-control bg-secondary" id="searchbar" placeholder="Введіть текст тут..." type="text" name="q">
+        <div class="searched_results" id="searched_results">
+        </div>
+    </form>
+    <div class="searched_data" id="searched_data">
+        {% for item in object_list %}
+            <a href="{% url 'product_detail' item.slug_name %}" class="item">{{item}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    const data = '{{qs_json}}'
+    const rdata = JSON.parse(data.replace(/&quot;/g, '"'))
+
+    const input = document.getElementById('searchbar')
+    const searchedData = document.getElementById('searched_data')
+    let filteredArr = []
+    // searchedData.innerHTML = ""
+
+    input.addEventListener('keyup', function(e) {
+        searchedData.innerHTML = ""
+        filteredArr = rdata.filter(info=> info.name.includes(e.target.value))
+        if (filteredArr) {
+            filteredArr.map(item=>{
+                let slug_name = item.name.replace(' ', '_')
+                searchedData.innerHTML += `<a href="product_detail/${slug_name}" class="item">${item.name}</a>`
+            })
+        }
+    })
+</script>
+{% endblock %} -->

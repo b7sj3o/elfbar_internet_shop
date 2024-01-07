@@ -19,7 +19,7 @@ function changeValue(index, price) {
     } else if (inp.value > 100) {
         inp.value = 100;
     }
-
+    
     changePrice(index, price)
 }
 
@@ -53,5 +53,5 @@ function generalPrice() {
         prices.forEach(price => {
             generalPrice += parseFloat(price.textContent);
         })
-    generalPriceInput.innerHTML = 'Загальна ціна:  <div class="fw-bold" style="margin-left: 5px;">' + generalPrice + ' грн.</div>';
+    generalPriceInput.innerHTML = generalPrice + ' грн.';
 }

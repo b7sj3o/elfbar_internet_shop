@@ -7,26 +7,30 @@
 
 {% block content %}
     <div class="container">
-        
+        <div class="main__block">
+            <div class="main__title">Каталог</div>
+        </div>
+        <h5 class="text-center"></h5>   
     </div>
-    <div class="main__block">
-        <div class="main__title">Каталог</div>
-    </div>
+
+
     <div class="main__products container">
         {% for product in products %}
             <div class="main__product">
                 <div class="product__img">
-                    <img src="{% static product.image %}" alt="{{product.image}}">
+                    <a href="{% url 'product_detail' product.slug_name %}">
+                        <img src="{% static product.image %}" id="product-image_{{product.id}}"  alt="{{product.image}}">
+                    </a>
                 </div>
-                <div class="product__name">{{ product.name }}</div>
+                <div class="product__name"><a href="{% url 'product_detail' product.slug_name %}" id="product-name_{{product.id}}">{{ product.name }}</a></div>
                 <div class="product__mini-description">{{ product.description1 }}</div>
-                <div class="product__price">{{ product.price }} грн.</div>
+                <div class="product__price" id="product-price_{{product.id}}">{{ product.price }} грн.</div>
                 
-                <form action="{% url 'add-to-cart' product.id %}" method="POST">
+                <form action="" method="POST" id="addToCart_form_{{product.id}}" class="addToCart_form">
                     {% csrf_token %}
                     <div class="product__flavours">
                         <p>Смак</p>
-                        <select name="chosen_flavour">
+                        <select name="chosen_flavour"  id="product-flavour_{{product.id}}">
                             {% for flavour in product.flavours.all %}
                                 {% if flavour.is_avialable %}
                                     <option value="{{ flavour.flavour }}">✅{{ flavour.flavour }}</option>
@@ -42,39 +46,19 @@
                             <input type="number" name="quantity" oninput="changeValue('{{product.id}}')" value="1" min="1" max="100" id="product-value_{{product.id}}">
                             <button type="button" onclick="increase('{{product.id}}')">+</button>
                         </div>
-                        <input type="submit" value="Купити">
+                        <input type="submit" value="Купити" id="product-btn_{{product.id}}">
                     </div>
-                    {% if request.user.username == 'admin' %}
-                        <a href="{% url 'delete-product' product.id %}" class="product__delete">Видалити</a>
-                    {% endif %}
+                    
                 </form>
+                {% if request.user.username == 'admin' %}
+                        <a href="{% url 'edit-product' product.id %}" class="product__delete bg-warning">Редагувати</a>
+                        <a href="{% url 'delete-product' product.id %}" class="product__delete">Видалити</a>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
-
-    <script>
-        
-        function decrease(index) {
-            let inp = document.getElementById(`product-value_${index}`)
-            if (inp.value > 1) inp.value--;
-        }
-
-        function increase(index) {
-            let inp = document.getElementById(`product-value_${index}`)
-            if (inp.value < 100) inp.value++;
-        }
-
-        function changeValue(index) {
-            let inp = document.getElementById(`product-value_${index}`);
-            if (inp.value < 1) {
-                inp.value = 1;
-            } else if (inp.value > 100) {
-                inp.value = 100;
-            }
-        }
-
-
-    </script>
-
     
+    
+
+<script src="{% static 'base/js/amount.js' %}"></script>
 {% endblock %}

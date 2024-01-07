@@ -7,34 +7,93 @@
 
 
 {% if cart %}
-<div class="cart__products">
-    {% for item in cart %}
-        <div class="cart__product">
-            <div class="cart-product__img">
-                <img src="{% static item.product.image %}" alt="{{item.product.image}}">
-            </div>
-            <div class="cart-product__name-info">
-                <div class="cart-product__name">{{ item.product.name }}</div>
-                <div class="cart-product__chosen-flavour">Смак: {{ item.chosen_flavour }}</div>
-            </div>
-
-            <div class="cart-product__amount">
-                <button type="button" onclick="decrease('{{item.product.id}}_{{item.chosen_flavour}}', '{{ item.product.price }}')">-</button>
-                <input type="number" oninput="changeValue('{{item.product.id}}_{{item.chosen_flavour}}', '{{ item.product.price }}')" value="{{item.quantity}}" min="1" max="100" id="product-value_{{item.product.id}}_{{item.chosen_flavour}}">
-                <button type="button" onclick="increase('{{item.product.id}}_{{item.chosen_flavour}}', '{{ item.product.price }}')">+</button>
-            </div>
-            
-            <div class="cart-product__price" id="{{item.product.id}}_{{item.chosen_flavour}}">{{ item.product.price }} грн.</div>
-
-            <div class="cart-product__remove">
-                <a href="{% url 'remove-from-cart' item.product.id item.chosen_flavour %}">X</a>
-            </div>
+<div class="container">
+    <div class="cart-wrapper">
+        <div class="cart__products">
+            {% if request.user.is_authenticated %}
+                {% for item in cart %}
+                    <div class="cart__product">
+                        <div class="cart-product__img">
+                            <a href="{% url 'product_detail' item.product.slug_name %}">
+                                <img src="{% static item.product.image %}" alt="{{item.product.image}}">
+                            </a>
+                        </div>
+                        <div class="cart-product__name-info">
+                            <div class="cart-product__name">{{ item.product.name }}</div>
+                            <div class="cart-product__chosen-flavour">Смак: {{ item.chosen_flavour }}</div>
+                        </div>
+        
+                        <div class="cart-product__amount">
+                            <button type="button" onclick="decrease('{{item.product.id}}_{{item.chosen_flavour}}', '{{ item.product.price }}')">-</button>
+                            <input type="number" oninput="changeValue('{{item.product.id}}_{{item.chosen_flavour}}', '{{ item.product.price }}')" value="{{item.quantity}}" min="1" max="100" id="product-value_{{item.product.id}}_{{item.chosen_flavour}}">
+                            <button type="button" onclick="increase('{{item.product.id}}_{{item.chosen_flavour}}', '{{ item.product.price }}')">+</button>
+                        </div>
+                        
+                        <div class="cart-product__price" id="{{item.product.id}}_{{item.chosen_flavour}}">{{ item.product.price }} грн.</div>
+        
+                        <div class="cart-product__remove">
+                            <a href="{% url 'remove-from-cart' item.product.id item.chosen_flavour %}">X</a>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                {% for item in cart %}
+                    <div class="cart__product">
+                        <div class="cart-product__img">
+                            <a href="{% url 'home' %}"><img src="{% static item.image %}" alt="{{item.image}}"></a>
+                        </div>
+                        <div class="cart-product__name-info">
+                            <div class="cart-product__name">{{ item.name }}</div>
+                            <div class="cart-product__chosen-flavour">Смак: {{ item.chosen_flavour }}</div>
+                        </div>
+        
+                        <div class="cart-product__amount">
+                            <button type="button" onclick="decrease('{{item.id}}_{{item.chosen_flavour}}', '{{ item.price }}')">-</button>
+                            <input type="number" oninput="changeValue('{{item.id}}_{{item.chosen_flavour}}', '{{ item.price }}')" value="{{item.quantity}}" min="1" max="100" id="product-value_{{item.id}}_{{item.chosen_flavour}}">
+                            <button type="button" onclick="increase('{{item.id}}_{{item.chosen_flavour}}', '{{ item.price }}')">+</button>
+                        </div>
+                        
+                        <div class="cart-product__price" id="{{item.id}}_{{item.chosen_flavour}}">{{ item.price }} грн.</div>
+        
+                        <div class="cart-product__remove">
+                            <a href="{% url 'remove-from-cart' item.id item.chosen_flavour %}">X</a>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            {% endif %}
         </div>
-        <hr>
-    {% endfor %}
-    <div class="cart-product__general"><b>Загальна ціна: </b></div>
+        <div class="cart__side-info">
+            <div class="cart__side__title">Підрахунок</div>
+            <hr>
+            <form action="" method="POST" class="cart__side__form">
+                {% csrf_token %}
+                <input type="text" class="cart__side__input" placeholder="Введіть промо-код тут...">
+                <input type="submit" value="Застосувати" class="cart__side__button">
+            </form>
+            <hr> 
+            <div class="cart__side__price">
+                <div class="cart__side__price-text">Загальна ціна</div>
+                <div class="cart__side__price-value cart-product__general"></div>
+            </div>
+            <div class="cart__side__price">
+                <div class="cart__side__price-text">Знижка</div>
+                <div class="cart__side__price-value">0 грн.</div>
+            </div>
+            <div class="cart__side__price">
+                <div class="cart__side__price-text cart__side__price-text_selected">Ціна зі знижкою</div>
+                <div class="cart__side__price-value cart__side__price-text_selected">730 грн.</div>
+            </div>
+            <a href="" class="cart__side__submit">Оформити замовлення</a>
+            <p class="cart__side__add-info">*Безкоштовна доставка від 1400грн</p>
+        </div>
+    </div>
 </div>
+
 {% endif %}
 
+
 <script src="{% static 'base/js/cart.js' %}"></script>
+
 {% endblock %}

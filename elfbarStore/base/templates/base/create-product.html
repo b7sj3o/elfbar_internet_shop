@@ -8,6 +8,15 @@
 
 {% block content %}
 
+{% if messages %}
+    {% for i in messages %}
+        <div class="alert alert-warning alert-dismissible fade show position-fixed w-75 mt-3" style="left: 12.5%" role="alert">
+            {{ i }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
 <style>
     .create__product {
         display: grid;
@@ -19,7 +28,7 @@
 
 <div class="container">
     <div class="create__product">
-        <div class="main__title">Добавити товар</div>
+        <div class="main__title">{% if update %}Редагувати товар{% else %}Добавити товар{% endif %}</div>
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {% for form in forms %}
@@ -29,7 +38,7 @@
             </div>
             {% endfor %}
 
-            <button type="submit" class="btn btn-primary w-50 mt-3">Добавити товар</button>
+            <button type="submit" class="btn btn-primary w-50 mt-3">{% if update %}Змінити{% else %}Добавити товар{% endif %}</button>
         </form>
     </div>
 </div>

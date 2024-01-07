@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block style %}
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+    .home_link {
+        display: flex;
+        justify-content: center;
+        margin: 30px auto 0 auto;
+
+    }
+
+    .home_link a {
+        font-size: 24px;
+        color: #fff;
+        padding: 10px 105px;     
+        border: 2px solid #000;
+        border-radius: 16px;
+        transition: all .5s ease;
+    }
+
+    .home_link a:hover {
+        background-color: #000;
+    }
+</style>
+
+<div class="container mt-5 bg-danger p-5 rounded-5">
+    <h1 class="text-center fs-1 text-black">Page 404</h1>
+    <h2 class="text-center fs-2 text-black">This page isn't found</h2>
+    <div class="home_link">
+        <a href="{% url 'home' %}">Go home</a>
+    </div>
+</div>
+
+{% endblock %}

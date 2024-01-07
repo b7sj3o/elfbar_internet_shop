@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+{% block style %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="detailed-product__wrapper">
+        <div class="main__title">Деталі</div>
+        <div class="detailed-product__header">
+            <div class="detailed-product__image">
+                <img src="{% static product.image %}" alt="">
+            </div>
+            <div class="detailed-product__data">
+                <div class="detailed-product__name" id="product-name_{{product.id}}">{{ product.name }}</div>
+                <div class="detailed-product__type">{{ product.type }}</div>
+                <div class="detailed-product__price" id="product-price_{{product.id}}">{{ product.price }}</div>
+                <form method="POST" id="addToCart_form_{{product.id}}" class="addToCart_form">
+                    {% csrf_token %}
+                    <div class="detailed-product__flavours">
+                        <p>Смак</p>
+                        <select name="chosen_flavour" id="product-flavour_{{product.id}}">
+                            {% for flavour in product.flavours.all %}
+                                {% if flavour.is_avialable %}
+                                    <option value="{{ flavour.flavour }}">✅{{ flavour.flavour }}</option>
+                                {% else %}
+                                    <option value="{{ flavour.flavour }}" disabled>❌{{ flavour.flavour }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="detailed-product__buy">
+                        <div class="detailed-product__amount">
+                            <button type="button" onclick="decrease('{{product.id}}')">-</button>
+                            <input type="number" name="quantity" oninput="changeValue('{{product.id}}')" value="1" min="1" max="100" id="product-value_{{product.id}}">
+                            <button type="button" onclick="increase('{{product.id}}')">+</button>
+                        </div>
+                        <input type="submit" value="Купити">
+                    </div>
+                </form>
+                <div class="detail-product__mini-description">{{ product.description1 }}</div>
+            </div>
+        </div>
+        <hr>
+        <div class="detailed-product__body">
+            <div class="detailed-product__title">Опис {{ product.name }}</div>
+            <div class="detailed-product__description">{{ product.description2 }}</div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'base/js/amount.js' %}"></script>
+
+{% endblock %}

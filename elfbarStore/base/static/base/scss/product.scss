@@ -1,0 +1,117 @@
+.detailed-product {
+    &__wrapper {
+    }
+
+    &__header {
+        display: flex;
+        margin-top: 50px;
+    }
+
+    &__image {
+        min-width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 400px;
+        }
+    }
+
+    &__data {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 30%;
+    }
+
+    &__name {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.35;
+    }
+
+    &__type {
+        font-size: 16px;
+        color: gray;
+        font-weight: 400px;
+    }
+
+    &__price {
+        font-weight: 700;
+    }
+
+    &__flavours {
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+
+            width: 80%;
+            padding: 3px 20px;
+            background-color: #fff;
+            border: 1px solid #caced1;
+            border-radius: 5px;
+        }
+    }
+
+    &__buy {
+        margin-top: 20px;
+        display: flex;
+        gap: 20px;
+
+        input[type="submit"] {
+            background: #ff5100;
+            border: 1px solid #ff5100;
+            height: 40px;
+            width: 50%;
+        }
+    }
+
+    &__amount {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border: 1px solid #000;
+        height: 40px;
+        width: 35%;
+
+        input {
+            border: 0;
+            text-align: center;
+            font-size: 24px;
+            width: 50px;
+            background-color: transparent;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                appearance: none;
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            &:focus-visible {
+                outline: none;
+            }
+        }
+
+        button {
+            border: none;
+            background: transparent;
+            font-size: 34px;
+        }
+    }
+
+    &__mini-description {
+        white-space: pre-wrap;
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    &__body {
+    }
+
+    &__title {
+    }
+
+    &__description {
+    }
+}
