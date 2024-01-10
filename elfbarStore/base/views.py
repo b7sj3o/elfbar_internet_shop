@@ -98,7 +98,6 @@ def addToCartAJAX(request, pk):
             else:
                 cart_item.quantity += quantity
 
-
             cart_item.save()
 
         else:

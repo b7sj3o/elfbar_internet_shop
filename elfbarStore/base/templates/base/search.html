@@ -1,4 +1,4 @@
-<!-- {% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
@@ -38,18 +38,37 @@
 
     const input = document.getElementById('searchbar')
     const searchedData = document.getElementById('searched_data')
-    let filteredArr = []
-    // searchedData.innerHTML = ""
-
     input.addEventListener('keyup', function(e) {
         searchedData.innerHTML = ""
-        filteredArr = rdata.filter(info=> info.name.includes(e.target.value))
-        if (filteredArr) {
-            filteredArr.map(item=>{
-                let slug_name = item.name.replace(' ', '_')
-                searchedData.innerHTML += `<a href="product_detail/${slug_name}" class="item">${item.name}</a>`
-            })
+        let val = e.target.value.toLowerCase()
+
+        let filteredData = []
+        for (let i of rdata) {
+            let suitMain = true;
+            for (let j of val.toLowerCase()) {
+                let suit = false;
+                for (let k of i.name.toLowerCase()) {
+                    const jCount = val.split(j).length - 1
+                    const kCount = i.name.toLowerCase().split(k).length - 1
+                    if (j == k && (jCount <= kCount || (j === " " || k === " "))) {
+                        suit = true;
+                        break;
+                    }
+                }
+                if (!suit) {
+                    suitMain = false;
+                    break;
+                }
+            }
+            if (suitMain) {
+                filteredData.push(i.name);
+            }
         }
+        filteredData.forEach(item=> {
+            const slug_name = item.replaceAll(' ', '_')
+            searchedData.innerHTML += `<a href="product/${slug_name}/" class="item">${item}</a>`
+
+        })
     })
 </script>
-{% endblock %} -->
+{% endblock %}

@@ -14,7 +14,7 @@ urlpatterns = [
 
     # --- READ -----
     path('cart', views.userCart, name='cart'),
-    path('product/<slug:slug_name>', views.productDetail, name='product_detail'),
+    path('product/<slug:slug_name>/', views.productDetail, name='product_detail'),
 
     # --- UPDATE ---
     path('edit-product<int:pk>', views.editProduct, name='edit-product'),

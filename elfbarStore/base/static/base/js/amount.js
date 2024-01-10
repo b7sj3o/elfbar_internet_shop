@@ -1,11 +1,19 @@
 function decrease(index) {
     let inp = document.getElementById(`product-value_${index}`)
     if (inp.value > 1) inp.value--;
+
+     
 }
 
 function increase(index) {
     let inp = document.getElementById(`product-value_${index}`)
     if (inp.value < 100) inp.value++;
+    const price = document.getElementById(`product-price_${index}`)
+    if (inp.value === '2') {
+        price.textContent = '280 грн / шт';
+    } else if (inp.value === '3') {
+        price.textContent = '270 грн / шт';
+    }
 }
 
 function changeValue(index) {
